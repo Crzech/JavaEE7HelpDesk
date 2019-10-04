@@ -36,6 +36,15 @@ public class srvSolicitudController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
+//            out.println("<!DOCTYPE html>");
+//            out.println("<html>");
+//            out.println("<head>");
+//            out.println("<title>Servlet NewServlet</title>");            
+//            out.println("</head>");
+//            out.println("<body>");
+//            out.println("<h1>" + request.getParameter("idDepartamento") + "</h1>");
+//            out.println("</body>");
+//            out.println("</html>");
             ModeloSolicitud nueva_solicitud = new ModeloSolicitud();
             int result;
             int action;
@@ -67,7 +76,7 @@ public class srvSolicitudController extends HttpServlet {
             request.setAttribute("processed", true);
             request.setAttribute("action", action);
             request.setAttribute("result", result);
-            RequestDispatcher rd = request.getRequestDispatcher("usuarios.jsp");
+            RequestDispatcher rd = request.getRequestDispatcher("solicitudes.jsp");
             rd.forward(request, response);
         }
     }

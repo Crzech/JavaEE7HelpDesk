@@ -3,6 +3,8 @@
     Created on : Sep 29, 2019, 4:47:23 PM
     Author     : christianpernillo
 --%>
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="java.text.DateFormat"%>
 <%@page import="java.sql.Date"%>
 <%@page import="Modelo.ModeloUsuario"%>
 <%@page import="java.util.ArrayList"%>
@@ -36,7 +38,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-xs-12 text-right">
-                    <a href="usuarios_create.jsp" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span> Agregar</a>
+                    <a href="solicitudes_create.jsp" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span> Agregar</a>
                 </div>
                 <div class="col-xs-12">
                     <div class="table-responsive">
@@ -56,7 +58,9 @@
                             <tbody>
                                 <%
                                     for (int counter = 0; counter < solicitudes.size(); counter++) { 		
-                                        Date expiry = new Date( solicitudes.get(counter).getFecha_creacion() * 1000 );
+                                        long yourSeconds = solicitudes.get(counter).getFecha_creacion();
+                                        DateFormat df = new SimpleDateFormat("dd MM yyyy hh:mm:ss");
+                                        Date d = new Date(yourSeconds * 1000);
 
                                 %>
                                 <tr>
@@ -64,10 +68,10 @@
                                     <td><%= solicitudes.get(counter).getDepartamento().getNombre_departamento() %></td>
                                     <td><%= solicitudes.get(counter).getTipo_solicitud() == 1 ? "Software" : "Hardware" %></td>
                                     <td><%= solicitudes.get(counter).getDescripcion_solicitud() %></td>
-                                    <td><%= expiry.toString() %></td>
+                                    <td><%= df.format(d) %></td>
                                     <td><%= solicitudes.get(counter).getEstado() <= 1 ? "Sin asignar" : "En proceso" %></td>
                                     <td><a href="solicitudes_edit.jsp?solicitud_id=<%= solicitudes.get(counter).getId_solicitud()%>" class="btn btn-primary"><span class="glyphicon glyphicon-pencil"></a></td>
-                                    <td><a href="usuarios_delete.jsp?solicitud_id=<%= solicitudes.get(counter).getId_solicitud() %>" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></a></td>
+                                    <td><a href="solicitud_delete.jsp?solicitud_id=<%= solicitudes.get(counter).getId_solicitud() %>" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></a></td>
                                 </tr>
                                 <% 
                                     }

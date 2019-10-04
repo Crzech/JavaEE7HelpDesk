@@ -29,9 +29,9 @@
             <div class="row">
                 <div class="col-xs-12">
                     <form action="srvSolicitudController" class="form" id="solicitud_create" method="POST">
-                        <div id="departamento_usuario_wrapper" class="form-group hide">
+                        <div class="form-group">
                             <label for="departamento_solicitud">Departamento:</label>
-                            <select class="form-control" id="departamento_solicitud" name="departamento_solicitud" required>
+                            <select class="form-control" id="idDepartamento" name="idDepartamento" required>
                                 <%
                                     ModeloDepartamentos modelo = new ModeloDepartamentos();
                                     ArrayList<ModeloDepartamentos> departamentos = modelo.getList();
@@ -45,14 +45,14 @@
                         </div>
                         <div class="form-group">
                             <label for="tipo_solicitud">Tipo:</label>
-                            <select class="form-control" id="tipo_solicitud" name="tipo_solicitud" required>
+                            <select class="form-control" id="tipoSolicitud" name="tipoSolicitud" required>
                                 <option value="1">Hardware</option>
                                 <option value="2">Software</option>
                             </select>
                         </div>
                         <div class="form-group">
                             <label for="descripcion_solicitud">Descripcion:</label>
-                            <textarea class="form-textarea" id="descripcion_solicitud" name="descripcion_solicitud"></textarea>
+                            <textarea class="form-control" rows="2" id="descSolicitud" name="descSolicitud"></textarea>
                         </div>
                         <div class="form-group">
                             <button class="btn btn-success"><span class="glyphicon glyphicon-plus"></span> Guardar</button>
@@ -62,18 +62,5 @@
             </div>
         </div>
 
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-        <script type="text/javascript">
-            $(document).on('change', '#perfil_usuario', function () {
-                var id_perfil = parseInt($(this).val());
-                if (id_perfil === 3) {
-                    $('#departamento_usuario_wrapper').removeClass('hide');
-                } else {
-                    $('#departamento_usuario_wrapper').addClass('hide');
-                }
-
-            });
-        </script>
-
-    </body>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>   </body>
 </html>

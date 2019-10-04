@@ -34,9 +34,9 @@
                     <form action="srvSolicitudController" class="form" id="solicitud_create" method="POST">
                         <input type="hidden" name="solicitud_id" value="<%= solicitud.getId_solicitud() %>"/>
                         <input type="hidden" name="action_formulario" value="update" />
-                        <div id="departamento_usuario_wrapper" class="form-group hide">
+                        <div class="form-group">
                             <label for="departamento_solicitud">Departamento:</label>
-                            <select class="form-control" id="departamento_solicitud" name="departamento_solicitud" required>
+                            <select class="form-control" id="idDepartamento" name="idDepartamento" required>
                                 <%
                                     ModeloDepartamentos modelo = new ModeloDepartamentos();
                                     ArrayList<ModeloDepartamentos> departamentos = modelo.getList();
@@ -53,14 +53,14 @@
                         </div>
                         <div class="form-group">
                             <label for="tipo_solicitud">Tipo:</label>
-                            <select class="form-control" id="tipo_solicitud" name="tipo_solicitud" required>
+                            <select class="form-control" id="tipoSolicitud" name="tipoSolicitud" required>
                                 <option value="1" <%= solicitud.getTipo_solicitud() == 1 ? "selected" : "" %>>Hardware</option>
                                 <option value="2" <%= solicitud.getTipo_solicitud() == 1 ? "selected" : "" %>>Software</option>
                             </select>
                         </div>
                         <div class="form-group">
                             <label for="descripcion_solicitud">Descripcion:</label>
-                            <textarea class="form-textarea" id="descripcion_solicitud" name="descripcion_solicitud" value="<%= solicitud.getDescripcion_solicitud() %>"></textarea>
+                            <textarea class="form-control" id="descSolicitud" name="descSolicitud"><%= solicitud.getDescripcion_solicitud() %></textarea>
                         </div>
                         <div class="form-group">
                             <button class="btn btn-success"><span class="glyphicon glyphicon-plus"></span> Guardar</button>

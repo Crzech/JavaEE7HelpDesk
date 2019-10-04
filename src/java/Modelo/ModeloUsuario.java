@@ -39,10 +39,12 @@ public class ModeloUsuario {
             Statement stm = cn.createStatement();
             ResultSet set = stm.executeQuery("SELECT * FROM hd_usuario WHERE username = '" + username + "'");
             while (set.next()) {
+                this.id_usuario = set.getInt("id_usuario");
                 this.username = set.getString("username");
                 this.nombre = set.getString("nombre");
                 this.apellido = set.getString("apellido");
                 this.perfil = set.getInt("perfil");
+                this.departamento = new ModeloDepartamentos(set.getInt("departamento_id"));
             }
         } catch (Exception ex) {
             
