@@ -65,7 +65,7 @@ public class srvUsuarioController extends HttpServlet {
             request.setAttribute("processed", true);
             request.setAttribute("action", action);
             request.setAttribute("result", result);
-            RequestDispatcher rd = request.getRequestDispatcher("usuarios.jsp");
+            RequestDispatcher rd = request.getRequestDispatcher("solicitudes.jsp");
             rd.forward(request, response);
         }
     }

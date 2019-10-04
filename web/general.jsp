@@ -56,6 +56,20 @@
                         </a>
                         <%
                     }
+                    if (usuario.getPerfil() == 2 || usuario.getPerfil() == 1) {
+                        %>
+                        <a href="solicitudes.jsp">
+                            <div class="col-sm-4">
+                                <div class="text-center">
+                                    <div class="section-general-wrapper">
+                                        <div class="icon-center-wrapper"><i class="glyphicon glyphicon-user"></i></div>
+                                        <div class="text-general-card"><h3>Solicitudes</h3></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                        <%
+                    }
                         %>
 
             </div>

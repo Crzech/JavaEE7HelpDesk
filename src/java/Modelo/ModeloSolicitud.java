@@ -25,6 +25,10 @@ public class ModeloSolicitud {
     public ModeloUsuario usuario;
     public int estado;
 
+    public ModeloSolicitud() {
+
+    }
+
     public int getId_solicitud() {
         return id_solicitud;
     }

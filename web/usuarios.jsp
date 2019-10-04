@@ -158,7 +158,7 @@
                                     <script type="text/javascript">
                                         Swal.fire(
                                             'Exito',
-                                            'Se han guardado correctamente los datos del usuario',
+                                            'Usuario eliminado correctamente',
                                             'success'
                                         );
                                     </script>
@@ -169,7 +169,7 @@
                                     <script type="text/javascript">
                                         Swal.fire(
                                             'Error',
-                                            'El nombre de usuario esta en uso, por favor elegir uno diferente',
+                                            'Tenemos problemas de conexion con el servidor, intentelo de nuevo',
                                             'error'
                                         );
                                     </script>

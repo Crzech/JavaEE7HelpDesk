@@ -16,6 +16,14 @@
         <servlet-name>srvUsuarioController</servlet-name>
         <servlet-class>Controlador.srvUsuarioController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>srvSolicitud</servlet-name>
+        <servlet-class>Controlador.srvSolicitud</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>srvSolicitudController</servlet-name>
+        <servlet-class>Controlador.srvSolicitudController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>srvLogin</servlet-name>
         <url-pattern>/srvLogin</url-pattern>
@@ -31,6 +39,14 @@
     <servlet-mapping>
         <servlet-name>srvUsuarioController</servlet-name>
         <url-pattern>/srvUsuarioController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>srvSolicitud</servlet-name>
+        <url-pattern>/srvSolicitud</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>srvSolicitudController</servlet-name>
+        <url-pattern>/srvSolicitudController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
