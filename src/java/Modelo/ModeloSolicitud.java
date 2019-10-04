@@ -91,9 +91,15 @@ public class ModeloSolicitud {
         Connection cn = con.getCn();
         ArrayList<ModeloSolicitud> list = new ArrayList<>();
         int contador = 0;
+        ModeloUsuario currentUser = new ModeloUsuario(id_usuario);
         try {
             Statement stm = cn.createStatement();
-            ResultSet set = stm.executeQuery("SELECT * FROM hd_solicitud WHERE usuario_id = '" + id_usuario + "' AND estado != 0");
+            ResultSet set;
+            if(currentUser.getPerfil() != 1) {
+                set = stm.executeQuery("SELECT * FROM hd_solicitud WHERE usuario_id = '" + id_usuario + "' AND estado != 0");
+            } else {
+                set = stm.executeQuery("SELECT * FROM hd_solicitud WHERE estado != 0");
+            }
             while (set.next()) {
                 ModeloSolicitud solicitud = new ModeloSolicitud();
                 solicitud.setId_solicitud(set.getInt("id_solicitud"));
