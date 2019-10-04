@@ -16,7 +16,7 @@
         <link rel="stylesheet" href="css/general.css">
         <title>Usuarios</title>
     </head>
-    <body class="departamentos departamentos_create">
+    <body class="usuarios usuarios_edit">
         <nav class="navbar navbar-default">
             <div class="container-fluid">
               <div class="navbar-header">
