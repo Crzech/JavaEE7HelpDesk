@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
+    <servlet>
+        <servlet-name>srvLogin</servlet-name>
+        <servlet-class>Controlador.srvLogin</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>srvGeneral</servlet-name>
+        <servlet-class>Controlador.srvGeneral</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>srvDepartamentosSave</servlet-name>
+        <servlet-class>Controlador.srvDepartamentosSave</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>srvUsuarioController</servlet-name>
+        <servlet-class>Controlador.srvUsuarioController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>srvLogin</servlet-name>
+        <url-pattern>/srvLogin</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>srvGeneral</servlet-name>
+        <url-pattern>/srvGeneral</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>srvDepartamentosSave</servlet-name>
+        <url-pattern>/srvDepartamentosSave</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>srvUsuarioController</servlet-name>
+        <url-pattern>/srvUsuarioController</url-pattern>
+    </servlet-mapping>
+    <session-config>
+        <session-timeout>
+            30
+        </session-timeout>
+    </session-config>
+    <welcome-file-list>
+        <welcome-file>login.jsp</welcome-file>
+    </welcome-file-list>
+</web-app>
