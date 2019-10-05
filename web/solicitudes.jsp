@@ -147,7 +147,7 @@
                                     <script type="text/javascript">
                                         Swal.fire(
                                             'Exito',
-                                            'Se ha eliminado la tarjeta del sistema',
+                                            'Se ha eliminado la solicitud del sistema',
                                             'success'
                                         );
                                     </script>

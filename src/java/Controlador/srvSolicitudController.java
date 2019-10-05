@@ -42,7 +42,7 @@ public class srvSolicitudController extends HttpServlet {
 //            out.println("<title>Servlet NewServlet</title>");            
 //            out.println("</head>");
 //            out.println("<body>");
-//            out.println("<h1>" + request.getParameter("idDepartamento") + "</h1>");
+//            out.println("<h1>" + request.getParameter("action_formulario") + "</h1>");
 //            out.println("</body>");
 //            out.println("</html>");
             ModeloSolicitud nueva_solicitud = new ModeloSolicitud();
@@ -60,7 +60,7 @@ public class srvSolicitudController extends HttpServlet {
 
                 action = 2;
             } else if (request.getParameter("solicitud_id") != null && "delete".equals(request.getParameter("action_formulario"))) {
-                nueva_solicitud.setId_solicitud(Integer.parseInt(request.getParameter("usuario_id")));
+                nueva_solicitud.setId_solicitud(Integer.parseInt(request.getParameter("solicitud_id")));
                 result = nueva_solicitud.delete();
                 action = 3;
             } else {

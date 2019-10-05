@@ -62,7 +62,7 @@
                             <div class="col-sm-4">
                                 <div class="text-center">
                                     <div class="section-general-wrapper">
-                                        <div class="icon-center-wrapper"><i class="glyphicon glyphicon-user"></i></div>
+                                        <div class="icon-center-wrapper"><i class="glyphicon glyphicon-list-alt	"></i></div>
                                         <div class="text-general-card"><h3>Solicitudes</h3></div>
                                     </div>
                                 </div>
