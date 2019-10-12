@@ -19,11 +19,12 @@
     <body class="usuarios usuarios_edit">
         <nav class="navbar navbar-default">
             <div class="container-fluid">
-              <div class="navbar-header">
-                <a class="navbar-brand" href="general.jsp">Inicio</a>
-              </div>
-              <ul class="nav navbar-nav">
-              </ul>
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="general.jsp">Inicio</a>
+                </div>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="srvLogoutController"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+                </ul>
             </div>
         </nav>
         <div class="container">
@@ -33,19 +34,19 @@
             <div class="row">
                 <div class="col-xs-12">
                     <form action="srvUsuarioController" class="form" id="usuario_edit" method="POST">
-                        <input type="hidden" name="usuario_id" value="<%= usuario.getId_usuario() %>"/>
+                        <input type="hidden" name="usuario_id" value="<%= usuario.getId_usuario()%>"/>
                         <input type="hidden" name="action_formulario" value="update" />
                         <div class="form-group">
                             <label for="nombre_usuario">Nombre:</label>
-                            <input class="form-control" id="nombre_usuario" name="nombre_usuario" type="text" value="<%= usuario.getNombre() %>" required/>
+                            <input class="form-control" id="nombre_usuario" name="nombre_usuario" type="text" value="<%= usuario.getNombre()%>" required/>
                         </div>
                         <div class="form-group">
                             <label for="apellido_usuario">Apellido:</label>
-                            <input class="form-control" id="apellido_usuario" name="apellido_usuario" type="text" value="<%= usuario.getApellido() %>" required/>
+                            <input class="form-control" id="apellido_usuario" name="apellido_usuario" type="text" value="<%= usuario.getApellido()%>" required/>
                         </div>
                         <div class="form-group">
                             <label for="username_usuario">Nombre de usuario:</label>
-                            <input class="form-control" id="username_usuario" name="username_usuario" type="text" value="<%= usuario.getUsername() %>" required/>
+                            <input class="form-control" id="username_usuario" name="username_usuario" type="text" value="<%= usuario.getUsername()%>" required/>
                         </div>
                         <div class="form-group">
                             <label for="password_usuario">Contraseña:</label>
@@ -54,20 +55,20 @@
                         <div class="form-group">
                             <label for="perfil_usuario">Perfil:</label>
                             <select class="form-control" id="perfil_usuario" name="perfil_usuario" required>
-                                <option value="1" <%= usuario.getPerfil() == 1 ? "selected" : "" %>>Administrador</option>
-                                <option value="2" <%= usuario.getPerfil() == 2 ? "selected" : "" %>>Solicitante</option>
-                                <option value="3" <%= usuario.getPerfil() == 3 ? "selected" : "" %>>Experto</option>
+                                <option value="1" <%= usuario.getPerfil() == 1 ? "selected" : ""%>>Administrador</option>
+                                <option value="2" <%= usuario.getPerfil() == 2 ? "selected" : ""%>>Solicitante</option>
+                                <option value="3" <%= usuario.getPerfil() == 3 ? "selected" : ""%>>Experto</option>
                             </select>
                         </div>
-                        <div id="departamento_usuario_wrapper" class="form-group <%= usuario.getPerfil() != 3 ? "hide" : "" %>">
+                        <div id="departamento_usuario_wrapper" class="form-group">
                             <label for="departamento_usuario">Departamento</label>
                             <select class="form-control" id="departamento_usuario" name="departamento_usuario" required>
                                 <%
                                     ModeloDepartamentos modelo = new ModeloDepartamentos();
                                     ArrayList<ModeloDepartamentos> departamentos = modelo.getList();
-                                    for (int counter = 0; counter < departamentos.size(); counter++) { 		      
+                                    for (int counter = 0; counter < departamentos.size(); counter++) {
                                 %>
-                                <option value="<%= departamentos.get(counter).id_departamento %>"><%= departamentos.get(counter).nombre_departamento %></option>
+                                <option value="<%= departamentos.get(counter).id_departamento%>"><%= departamentos.get(counter).nombre_departamento%></option>
                                 <%
                                     }
                                 %>
@@ -80,19 +81,8 @@
                 </div>
             </div>
         </div>
-        
+
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-        <script type="text/javascript">
-            $(document).on('change', '#perfil_usuario', function(){
-                var id_perfil = parseInt($(this).val());
-                if(id_perfil === 3) {
-                    $('#departamento_usuario_wrapper').removeClass('hide');
-                } else {
-                    $('#departamento_usuario_wrapper').addClass('hide');
-                }
-                    
-            });
-        </script>
-        
+
     </body>
 </html>

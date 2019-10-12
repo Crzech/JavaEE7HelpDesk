@@ -3,6 +3,8 @@
     Created on : Sep 29, 2019, 4:47:23 PM
     Author     : christianpernillo
 --%>
+<%@page import="Modelo.ModeloSolicitud"%>
+<%@page import="Modelo.ModeloUsuario"%>
 <%@page import="Modelo.ModeloDepartamentos"%>
 <%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -27,33 +29,39 @@
             </div>
         </nav>
         <div class="container">
+            <%
+                ModeloSolicitud solicitud = new ModeloSolicitud(Integer.parseInt(request.getParameter("solicitud_id")));
+            %>
             <div class="row">
                 <div class="col-xs-12">
                     <form action="srvSolicitudController" class="form" id="solicitud_create" method="POST">
+                        <input type="hidden" name="solicitud_id" value="<%= solicitud.getId_solicitud() %>"/>
+                        <input type="hidden" name="action_formulario" value="asignar" />
                         <div class="form-group">
-                            <label for="departamento_solicitud">Departamento:</label>
-                            <select class="form-control" id="idDepartamento" name="idDepartamento" required>
+                            <label for="idUsuario">Usuario:</label>
+                            <select class="form-control" id="idUsuario" name="idUsuario" required>
                                 <%
-                                    ModeloDepartamentos modelo = new ModeloDepartamentos();
-                                    ArrayList<ModeloDepartamentos> departamentos = modelo.getList();
-                                    for (int counter = 0; counter < departamentos.size(); counter++) {
+                                    ModeloUsuario modeloUsuario = new ModeloUsuario();
+                                    ArrayList<ModeloUsuario> usuarios = modeloUsuario.getByDepartamento(solicitud.getDepartamento().getId_departamento(), true);
+                                    for (int counter = 0; counter < usuarios.size(); counter++) {
                                 %>
-                                <option value="<%= departamentos.get(counter).id_departamento%>"><%= departamentos.get(counter).nombre_departamento%></option>
+                                <option value="<%= usuarios.get(counter).getId_usuario()%>"><%= usuarios.get(counter).getNombre() + " " + usuarios.get(counter).getApellido()%></option>
                                 <%
                                     }
                                 %>
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="tipo_solicitud">Tipo:</label>
-                            <select class="form-control" id="tipoSolicitud" name="tipoSolicitud" required>
-                                <option value="1">Hardware</option>
-                                <option value="2">Software</option>
-                            </select>
+                            <label for="fechaFinal">Fecha limite de tarea:</label>
+                            <input class="form-control" type="date" id="fechaFinal" name="fechaFinal" />
                         </div>
                         <div class="form-group">
-                            <label for="descripcion_solicitud">Descripcion:</label>
-                            <textarea class="form-control" rows="2" id="descSolicitud" name="descSolicitud"></textarea>
+                            <label for="tipo_solicitud">Prioridad:</label>
+                            <select class="form-control" id="prioridadSolicitud" name="prioridadSolicitud" required>
+                                <option value="1">Alta</option>
+                                <option value="2">Media</option>
+                                <option value="3">Baja</option>
+                            </select>
                         </div>
                         <div class="form-group">
                             <button class="btn btn-success"><span class="glyphicon glyphicon-plus"></span> Guardar</button>

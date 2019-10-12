@@ -17,11 +17,12 @@
     <body>
         <nav class="navbar navbar-default">
             <div class="container-fluid">
-              <div class="navbar-header">
-                <a class="navbar-brand" href="general.jsp">Inicio</a>
-              </div>
-              <ul class="nav navbar-nav">
-              </ul>
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="general.jsp">Inicio</a>
+                </div>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="srvLogoutController"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+                </ul>
             </div>
         </nav>
         <%--<jsp:include page="/srvGeneral" flush="true" />--%>
@@ -31,50 +32,65 @@
         %>
         <div class="container">
             <div class="row">
-                <% 
-                    if(usuario.getPerfil() == 1) {
-                        %>
-                        <a href="departamentos.jsp">
-                            <div class="col-sm-4">
-                                <div class="text-center">
-                                    <div class="section-general-wrapper">
-                                        <div class="icon-center-wrapper"><i class="glyphicon glyphicon-th"></i></div>
-                                        <div class="text-general-card"><h3>Departamentos</h3></div>
-                                    </div>
-                                </div>
+                <%
+                    if (usuario.getPerfil() == 1) {
+                %>
+                <a href="departamentos.jsp">
+                    <div class="col-sm-4">
+                        <div class="text-center">
+                            <div class="section-general-wrapper">
+                                <div class="icon-center-wrapper"><i class="glyphicon glyphicon-th"></i></div>
+                                <div class="text-general-card"><h3>Departamentos</h3></div>
                             </div>
-                        </a>
-                        <a href="usuarios.jsp">
-                            <div class="col-sm-4">
-                                <div class="text-center">
-                                    <div class="section-general-wrapper">
-                                        <div class="icon-center-wrapper"><i class="glyphicon glyphicon-user"></i></div>
-                                        <div class="text-general-card"><h3>Usuarios</h3></div>
-                                    </div>
-                                </div>
+                        </div>
+                    </div>
+                </a>
+                <a href="usuarios.jsp">
+                    <div class="col-sm-4">
+                        <div class="text-center">
+                            <div class="section-general-wrapper">
+                                <div class="icon-center-wrapper"><i class="glyphicon glyphicon-user"></i></div>
+                                <div class="text-general-card"><h3>Usuarios</h3></div>
                             </div>
-                        </a>
-                        <%
+                        </div>
+                    </div>
+                </a>
+                <%
                     }
                     if (usuario.getPerfil() == 2 || usuario.getPerfil() == 1) {
-                        %>
-                        <a href="solicitudes.jsp">
-                            <div class="col-sm-4">
-                                <div class="text-center">
-                                    <div class="section-general-wrapper">
-                                        <div class="icon-center-wrapper"><i class="glyphicon glyphicon-list-alt	"></i></div>
-                                        <div class="text-general-card"><h3>Solicitudes</h3></div>
-                                    </div>
-                                </div>
+                %>
+                <a href="solicitudes.jsp">
+                    <div class="col-sm-4">
+                        <div class="text-center">
+                            <div class="section-general-wrapper">
+                                <div class="icon-center-wrapper"><i class="glyphicon glyphicon-list-alt	"></i></div>
+                                <div class="text-general-card"><h3>Solicitudes</h3></div>
                             </div>
-                        </a>
-                        <%
+                        </div>
+                    </div>
+                </a>
+                <%
                     }
-                        %>
+                    if (usuario.getPerfil() == 3) {
+                %>
+                <a href="solicitudes_cola.jsp">
+                    <div class="col-sm-4">
+                        <div class="text-center">
+                            <div class="section-general-wrapper">
+                                <div class="icon-center-wrapper"><i class="glyphicon glyphicon-list-alt	"></i></div>
+                                <div class="text-general-card"><h3>Solicitudes</h3></div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                <%
+                    }
+                %>
+
 
             </div>
         </div>
-        
+
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script> 
     </body>
 </html>

@@ -10,6 +10,10 @@ import Modelo.ModeloSolicitud;
 import Modelo.ModeloUsuario;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.TimeZone;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -55,14 +59,49 @@ public class srvSolicitudController extends HttpServlet {
                 HttpSession session = request.getSession();
                 nueva_solicitud.setUsuario(new ModeloUsuario(session.getAttribute("username").toString()));
                 nueva_solicitud.setId_solicitud(Integer.parseInt(request.getParameter("solicitud_id")));
-                
-                result = nueva_solicitud.update();    
+
+                result = nueva_solicitud.update();
 
                 action = 2;
             } else if (request.getParameter("solicitud_id") != null && "delete".equals(request.getParameter("action_formulario"))) {
                 nueva_solicitud.setId_solicitud(Integer.parseInt(request.getParameter("solicitud_id")));
                 result = nueva_solicitud.delete();
                 action = 3;
+            } else if (request.getParameter("solicitud_id") != null && "asignar".equals(request.getParameter("action_formulario"))) {
+                int id_solicitud = Integer.parseInt(request.getParameter("solicitud_id"));
+                int id_usuario = Integer.parseInt(request.getParameter("idUsuario"));
+                int prioridad = Integer.parseInt(request.getParameter("prioridadSolicitud"));
+                String dateString = request.getParameter("fechaFinal");
+                SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+                String fechaProblem = "";
+                Date date;
+                long time;
+                try {
+                    date = df.parse(dateString);
+                    time = date.getTime();
+                } catch(Exception ex) {
+                    result = 2;
+                    fechaProblem = ex.getMessage();
+                    time = 0;
+                }
+                 
+
+//                out.println("<!DOCTYPE html>");
+//                out.println("<html>");
+//                out.println("<head>");
+//                out.println("<title>Servlet NewServlet</title>");            
+//                out.println("</head>");
+//                out.println("<body>");
+//                out.println("<h1>" + id_solicitud + "</h1>");
+//                out.println("<h1>" + id_usuario + "</h1>");
+//                out.println("<h1>" + prioridad + "</h1>");
+//                out.println("<h1>" + time + "</h1>");
+//                out.println("<h1>" + request.getParameter("prioridadSolicitud") + "</h1>");
+//                out.println("<h1>" + request.getParameter("fechaFinal") + "</h1>");
+//                out.println("</body>");
+//                out.println("</html>");
+                action = 4;
+                result = nueva_solicitud.asignar(id_solicitud, id_usuario, prioridad, time);
             } else {
                 nueva_solicitud.setDepartamento(new ModeloDepartamentos(Integer.parseInt(request.getParameter("idDepartamento"))));
                 nueva_solicitud.setTipo_solicitud(Integer.parseInt(request.getParameter("tipoSolicitud")));
@@ -70,7 +109,7 @@ public class srvSolicitudController extends HttpServlet {
                 HttpSession session = request.getSession();
                 nueva_solicitud.setUsuario(new ModeloUsuario(session.getAttribute("username").toString()));
                 nueva_solicitud.setEstado(1);
-                result = nueva_solicitud.save();  
+                result = nueva_solicitud.save();
                 action = 1;
             }
             request.setAttribute("processed", true);
@@ -78,7 +117,8 @@ public class srvSolicitudController extends HttpServlet {
             request.setAttribute("result", result);
             RequestDispatcher rd = request.getRequestDispatcher("solicitudes.jsp");
             rd.forward(request, response);
-        }
+
+        } 
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

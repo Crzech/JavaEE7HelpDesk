@@ -24,6 +24,10 @@
         <servlet-name>srvSolicitudController</servlet-name>
         <servlet-class>Controlador.srvSolicitudController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>srvLogoutController</servlet-name>
+        <servlet-class>Controlador.srvLogoutController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>srvLogin</servlet-name>
         <url-pattern>/srvLogin</url-pattern>
@@ -47,6 +51,10 @@
     <servlet-mapping>
         <servlet-name>srvSolicitudController</servlet-name>
         <url-pattern>/srvSolicitudController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>srvLogoutController</servlet-name>
+        <url-pattern>/srvLogoutController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

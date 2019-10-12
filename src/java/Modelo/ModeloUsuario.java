@@ -275,4 +275,35 @@ public class ModeloUsuario {
         }
         con.desconectar();
    }
+   
+   public ArrayList<ModeloUsuario> getByDepartamento(int id_departamento, boolean solo_expertos) {
+        Conexion con = new Conexion();
+        con.conectar();
+        Connection cn = con.getCn();
+        ArrayList<ModeloUsuario> list = new ArrayList<>();
+        int contador = 0;
+        try {
+            Statement stm = cn.createStatement();
+            ResultSet set;
+            if (solo_expertos) {
+                set = stm.executeQuery("SELECT * FROM hd_usuario WHERE estado = 1 AND departamento_id = '" + id_departamento + "' AND perfil = 3");
+            } else {
+                set = stm.executeQuery("SELECT * FROM hd_usuario WHERE estado = 1 AND departamento_id = '" + id_departamento + "'");
+            }
+            while (set.next()) {
+                ModeloUsuario usuario = new ModeloUsuario();
+                usuario.setId_usuario(set.getInt("id_usuario"));
+                usuario.setUsername(set.getString("username"));
+                usuario.setNombre(set.getString("nombre"));
+                usuario.setApellido(set.getString("apellido"));
+                usuario.setPerfil(set.getInt("perfil"));
+                usuario.setDepartamento(new ModeloDepartamentos(set.getInt("departamento_id")));
+                list.add(usuario);
+            }
+        } catch (Exception ex) {
+
+        }
+        con.desconectar();
+        return list;
+   }
 }

@@ -22,7 +22,8 @@
               <div class="navbar-header">
                 <a class="navbar-brand" href="general.jsp">Inicio</a>
               </div>
-              <ul class="nav navbar-nav">
+              <ul class="nav navbar-nav navbar-right">
+                <li><a href="srvLogoutController"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
               </ul>
             </div>
         </nav>
@@ -54,7 +55,7 @@
                                 <option value="3">Experto</option>
                             </select>
                         </div>
-                        <div id="departamento_usuario_wrapper" class="form-group hide">
+                        <div id="departamento_usuario_wrapper" class="form-group">
                             <label for="departamento_usuario">Departamento</label>
                             <select class="form-control" id="departamento_usuario" name="departamento_usuario" required>
                                 <%
@@ -77,17 +78,6 @@
         </div>
         
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-        <script type="text/javascript">
-            $(document).on('change', '#perfil_usuario', function(){
-                var id_perfil = parseInt($(this).val());
-                if(id_perfil === 3) {
-                    $('#departamento_usuario_wrapper').removeClass('hide');
-                } else {
-                    $('#departamento_usuario_wrapper').addClass('hide');
-                }
-                    
-            });
-        </script>
         
     </body>
 </html>

@@ -95,10 +95,23 @@ public class ModeloSolicitud {
         try {
             Statement stm = cn.createStatement();
             ResultSet set;
-            if(currentUser.getPerfil() != 1) {
-                set = stm.executeQuery("SELECT * FROM hd_solicitud WHERE usuario_id = '" + id_usuario + "' AND estado != 0");
-            } else {
-                set = stm.executeQuery("SELECT * FROM hd_solicitud WHERE estado != 0");
+//            if (currentUser.getPerfil() != 1) {
+//                set = stm.executeQuery("SELECT * FROM hd_solicitud WHERE usuario_id = '" + id_usuario + "' AND estado != 0");
+//            } else if (currentUser.getPerfil() == 2 1)
+//            } else {
+//                set = stm.executeQuery("SELECT * FROM hd_solicitud WHERE estado != 0");
+//            }
+            switch (currentUser.getPerfil()) {
+                case 1:
+                    set = stm.executeQuery("SELECT * FROM hd_solicitud WHERE estado != 0");
+                    break;
+                case 2:
+                    set = stm.executeQuery("SELECT * FROM hd_solicitud WHERE usuario_id = '" + id_usuario + "' AND estado != 0");
+                    break;
+                default:
+                    set = stm.executeQuery("SELECT * FROM hd_solicitud INNER JOIN hd_solicitud_asignacion ON hd_solicitud.id_solicitud = hd_solicitud_asignacion.id_solicitud WHERE estado != 0");
+                    break;
+                            
             }
             while (set.next()) {
                 ModeloSolicitud solicitud = new ModeloSolicitud();
@@ -201,6 +214,35 @@ public class ModeloSolicitud {
 
         }
         con.desconectar();
+    }
+
+    public int asignar(int id_solicitud, int id_usuario, int prioridad, long fecha_final) {
+        int result = 0;
+        Conexion con = new Conexion();
+        con.conectar();
+        Connection cn = con.getCn();
+        try {
+            long unixTime = System.currentTimeMillis() / 1000L;
+            PreparedStatement stm = cn.prepareStatement("INSERT INTO hd_solicitud_asignacion (id_solicitud, id_usuario, fecha_final, prioridad, estado, fecha_asignacion) VALUES (?, ?, ?, ?, ?, ?)");
+            stm.setInt(1, id_solicitud);
+            stm.setInt(2, id_usuario);
+            stm.setLong(3, fecha_final);
+            stm.setInt(4, prioridad);
+            stm.setInt(5, 1);
+            stm.setLong(6, unixTime);
+            stm.executeUpdate();
+
+            PreparedStatement stm2 = cn.prepareStatement("UPDATE hd_solicitud SET estado = 2 WHERE id_solicitud = ?");
+            stm2.setInt(1, id_solicitud);
+            stm2.executeUpdate();
+            result = 1;
+
+        } catch (Exception ex) {
+            result = 2;
+
+        }
+        con.desconectar();
+        return result;
     }
 
 }
