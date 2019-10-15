@@ -3,6 +3,7 @@
     Created on : Sep 29, 2019, 4:47:23 PM
     Author     : christianpernillo
 --%>
+<%@page import="Modelo.ModeloResolucionAsignacion"%>
 <%@page import="Modelo.ModeloSolicitudAsignacion"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.text.DateFormat"%>
@@ -36,9 +37,14 @@
             ModeloUsuario usuario = new ModeloUsuario(username);
             ModeloSolicitudAsignacion modelo = new ModeloSolicitudAsignacion();
             ArrayList<ModeloSolicitudAsignacion> asignaciones = modelo.getList(usuario.getId_usuario());
-            ArrayList<ModeloSolicitudAsignacion> asginacion_completada = modelo.getCompletadasList(usuario.getId_usuario());
+
+            ModeloResolucionAsignacion modelo_resoluciones = new ModeloResolucionAsignacion();
+            ArrayList<ModeloResolucionAsignacion> lista_resueltas = modelo_resoluciones.getList(usuario.getId_usuario());
+            
+            String test = modelo_resoluciones.testList(usuario.getId_usuario());
         %>
         <div class="container">
+            <%= test %>
             <div class="row">
                 <div class="col-xs-12">
                     <h1 class="text-center">Solicitudes pendientes</h1>
@@ -82,25 +88,26 @@
                                     <th>Descripcion</th>
                                     <th>Fecha de asignacion</th>
                                     <th>Fecha de resolucion</th>
-                                    <th>Resolucion</th>
+                                    <th>Resolucion o procedimiento a seguir</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <%
-                                    for (int counter = 0; counter < asginacion_completada.size(); counter++) {
-                                        long fecha_final = asginacion_completada.get(counter).getFecha_final();
+                                    for (int counter = 0; counter < lista_resueltas.size(); counter++) {
+                                        long fecha_final = lista_resueltas.get(counter).getFecha();
                                         DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
                                         Date d1 = new Date(fecha_final * 1000);
 
-                                        long fecha_inicio = asginacion_completada.get(counter).getFecha_asignacion();
+                                        long fecha_inicio = lista_resueltas.get(counter).getAsignacion().getFecha_asignacion();
                                         Date d2 = new Date(fecha_inicio * 1000);
                                 %>
                                 <tr>
                                     <td><%= (counter + 1)%></td>
-                                    <td><%= df.format(d2)  %></td>
-                                    <td><%= df.format(d1)  %></td>
-                                    <td><%= df.format(d1)  %></td>
-                                    <th></th>
+                                    <td><%= lista_resueltas.get(counter).getAsignacion().getSolicitud().getDescripcion_solicitud()%></td>
+                                    <td><%= df.format(d2)%></td>
+                                    <td><%= df.format(d1)%></td>
+                                    <td><%=  lista_resueltas.get(counter).getDescripcion()%></td>
+
                                 </tr>
                                 <%
                                     }
@@ -117,43 +124,15 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
     <%
         if (request.getAttribute("processed") != null) {
-            int action = Integer.parseInt(request.getAttribute("action").toString());
+
             int result = Integer.parseInt(request.getAttribute("result").toString());
-            switch (action) {
-                case 1:
-                    switch (result) {
-                        case 1:
-    %>
-    <script type="text/javascript">
-        Swal.fire(
-                'Exito',
-                'Se han guardado correctamente los datos de la solicitud',
-                'success'
-                );
-    </script>
-    <%
-            break;
-        case 2:
-    %>
-    <script type="text/javascript">
-        Swal.fire(
-                'Error',
-                'Tenemos problemas de conexion con el servidor, intentelo de nuevo',
-                'error'
-                );
-    </script>
-    <%
-                    break;
-            }
-            break;
-        case 2:
             switch (result) {
                 case 1:
     %>
     <script type="text/javascript">
         Swal.fire(
                 'Exito',
-                'Se han guardado correctamente los datos de la solicitud',
+                'El ticket ha sido solventado',
                 'success'
                 );
     </script>
@@ -171,61 +150,9 @@
     <%
                     break;
             }
-            break;
-        case 3:
-            switch (result) {
-                case 1:
-    %>
-    <script type="text/javascript">
-        Swal.fire(
-                'Exito',
-                'Se ha eliminado la solicitud del sistema',
-                'success'
-                );
-    </script>
-    <%
-            break;
-        case 2:
-    %>
-    <script type="text/javascript">
-        Swal.fire(
-                'Error',
-                'Tenemos problemas de conexion con el servidor, intentelo de nuevo',
-                'error'
-                );
-    </script>
-    <%
-                    break;
-            }
-            break;
-        case 4:
-            switch (result) {
-                case 1:
-    %>
-    <script type="text/javascript">
-        Swal.fire(
-                'Exito',
-                'Se ha asignado el ticket correctamente',
-                'success'
-                );
-    </script>
-    <%
-            break;
-        case 2:
-    %>
-    <script type="text/javascript">
-        Swal.fire(
-                'Error',
-                'Tenemos problemas de conexion con el servidor, intentelo de nuevo',
-                'error'
-                );
-    </script>
-    <%
-                            break;
-                    }
-                    break;
-            }
+
         }
+
     %>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script> 
 </body>

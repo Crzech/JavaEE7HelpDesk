@@ -81,10 +81,24 @@
                                 <tr>
                                     <td><%= (counter + 1)%></td>
                                     <td><%= solicitudes.get(counter).getDepartamento().getNombre_departamento()%></td>
+                                    <%
+                                        String estado = "";
+                                        switch(solicitudes.get(counter).getEstado()) {
+                                            case 1:
+                                                estado = "Sin asignar";
+                                                break;
+                                            case 2:
+                                                estado = "En proceso";
+                                                break;
+                                            case 3:
+                                                estado = "Finalizada";
+                                                break;  
+                                        }
+                                    %>
                                     <td><%= solicitudes.get(counter).getTipo_solicitud() == 1 ? "Software" : "Hardware"%></td>
                                     <td><%= solicitudes.get(counter).getDescripcion_solicitud()%></td>
-                                    <td><%= df.format(d)%></td>
-                                    <td><%= solicitudes.get(counter).getEstado() <= 1 ? "Sin asignar" : "En proceso"%></td>
+                                    <td><%= df.format(d) %></td>
+                                    <td><%= estado %></td>
                                     <td><a href="solicitudes_edit.jsp?solicitud_id=<%= solicitudes.get(counter).getId_solicitud()%>" <%= solicitudes.get(counter).getEstado() != 1 ? "disabled" : ""  %> class="btn btn-primary"><span class="glyphicon glyphicon-pencil"></span></a></td>
                                     <td><a href="solicitud_delete.jsp?solicitud_id=<%= solicitudes.get(counter).getId_solicitud()%>" <%= solicitudes.get(counter).getEstado() != 1 ? "disabled" : ""  %> class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a></td>
                                     <%

@@ -208,27 +208,27 @@ public class ModeloSolicitudAsignacion {
 //        return result;
 //    }
 //
-//    public ModeloSolicitud(int id_solicitud) {
-//        Conexion con = new Conexion();
-//        con.conectar();
-//        Connection cn = con.getCn();
-//        try {
-//            Statement stm = cn.createStatement();
-//            ResultSet set = stm.executeQuery("SELECT * FROM hd_solicitud WHERE id_solicitud = '" + id_solicitud + "'");
-//            while (set.next()) {
-//                this.id_solicitud = set.getInt("id_solicitud");
-//                this.departamento = new ModeloDepartamentos(set.getInt("id_departamento"));
-//                this.tipo_solicitud = set.getInt("tipo_solicitud");
-//                this.Descripcion_solicitud = set.getString("descripcion_solicitud");
-//                this.fecha_creacion = set.getInt("fecha_creacion");
-//                this.usuario = new ModeloUsuario(set.getInt("usuario_id"));
-//                this.estado = set.getInt("estado");
-//            }
-//        } catch (Exception ex) {
-//
-//        }
-//        con.desconectar();
-//    }
+    public ModeloSolicitudAsignacion(int id_solicitud_asignacion) {
+        Conexion con = new Conexion();
+        con.conectar();
+        Connection cn = con.getCn();
+        try {
+            Statement stm = cn.createStatement();
+            ResultSet set = stm.executeQuery("SELECT * FROM hd_solicitud_asignacion WHERE id_solicitud_asignacion = '" + id_solicitud_asignacion + "'");
+            while (set.next()) {
+               this.id_solicitud_asignacion = id_solicitud_asignacion;
+               this.solicitud = new ModeloSolicitud(set.getInt("id_solicitud"));
+               this.usuario = new ModeloUsuario(set.getInt("id_usuario"));
+               this.prioridad = set.getInt("prioridad");
+               this.fecha_final = set.getLong("fecha_final");
+               this.fecha_asignacion = set.getLong("fecha_asignacion");
+               this.estado = set.getInt("estado");
+            }
+        } catch (Exception ex) {
+
+        }
+        con.desconectar();
+    }
 //
 //    public int asignar(int id_solicitud, int id_usuario, int prioridad, long fecha_final) {
 //        int result = 0;

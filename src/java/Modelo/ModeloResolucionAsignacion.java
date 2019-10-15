@@ -6,6 +6,7 @@
 package Modelo;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -67,11 +68,11 @@ public class ModeloResolucionAsignacion {
         Connection cn = con.getCn();
         ArrayList<ModeloResolucionAsignacion> list = new ArrayList<>();
         int contador = 0;
-//        ModeloUsuario currentUser = new ModeloUsuario(id_usuario);
+//       Buscar libreria itextpdf
         try {
             Statement stm = cn.createStatement();
             ResultSet set;
-            set = stm.executeQuery("SELECT * FROM hd_asignacion_resolucion INNER JOIN hd_solicitud_asignacion ON hd_asignacion_resolucion.id_asignacion = hd_solicitud_asignacion.id_solicitud_asignacion WHERE hd_solicitud_asignacion.id_usuario = '" + id_usuario + "' hd_solicitud_asignacion.estado = 2 ORDER BY hd_asignacion_resolucion.fecha DESC");
+            set = stm.executeQuery("SELECT * FROM hd_asignacion_resolucion INNER JOIN hd_solicitud_asignacion ON hd_asignacion_resolucion.id_asignacion = hd_solicitud_asignacion.id_solicitud_asignacion WHERE hd_solicitud_asignacion.id_usuario = '" + id_usuario + "' AND hd_solicitud_asignacion.estado = 2 ORDER BY hd_asignacion_resolucion.fecha DESC");
             while (set.next()) {
                 ModeloResolucionAsignacion resolucion = new ModeloResolucionAsignacion();
                 resolucion.setAsignacion(new ModeloSolicitudAsignacion(set.getInt("id_asignacion")));
@@ -82,5 +83,41 @@ public class ModeloResolucionAsignacion {
         con.desconectar();
         return list;
     }
+    public String testList(int id_usuario) {
+        String query = "SELECT * FROM hd_asignacion_resolucion INNER JOIN hd_solicitud_asignacion ON hd_asignacion_resolucion.id_asignacion = hd_solicitud_asignacion.id_solicitud_asignacion WHERE hd_solicitud_asignacion.id_usuario = '" + id_usuario + "' AND hd_solicitud_asignacion.estado = 2 ORDER BY hd_asignacion_resolucion.fecha DESC";
+        return query;
+    }
     
+    public int save() {
+        int result = 0;
+        Conexion con = new Conexion();
+        con.conectar();
+        Connection cn = con.getCn();
+        try {
+            long unixTime = System.currentTimeMillis() / 1000L;
+            PreparedStatement stm = cn.prepareStatement("INSERT INTO hd_asignacion_resolucion (id_asignacion, tipo, descripcion, fecha) VALUES (?, ?, ?, ?)");
+            stm.setInt(1, this.getAsignacion().getId_solicitud_asignacion());
+            stm.setInt(2, this.getTipo());
+            stm.setString(3, this.getDescripcion());
+            stm.setLong(4, unixTime);
+            stm.executeUpdate();
+            
+            PreparedStatement stm2 = cn.prepareStatement("UPDATE hd_solicitud_asignacion SET estado = 2 WHERE id_solicitud_asignacion = ?");
+            stm2.setInt(1, this.getAsignacion().getId_solicitud_asignacion());
+            stm2.executeUpdate();          
+            
+            PreparedStatement stm3 = cn.prepareStatement("UPDATE hd_solicitud SET estado = 3 WHERE id_solicitud = ?");
+            stm3.setInt(1, this.getAsignacion().getSolicitud().getId_solicitud());
+            stm3.executeUpdate();
+            stm3.executeUpdate();
+            
+            result = 1;
+
+        } catch (Exception ex) {
+            result = 2;
+
+        }
+        con.desconectar();
+        return result;
+    }
 }
